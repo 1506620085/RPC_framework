@@ -8,8 +8,8 @@ import com.rpc.common.service.UserService;
  */
 public class SimpleConsumer {
     public static void main(String[] args) {
-        // TODO 需要获取 UserService 的实现类对象
-        UserService userService = null;
+        // 静态代理
+        UserService userService = new UserServiceProxy();
         User user = new User();
         user.setName("Hangz");
         // 调用
