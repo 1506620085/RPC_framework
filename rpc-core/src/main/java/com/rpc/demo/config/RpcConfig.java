@@ -36,4 +36,9 @@ public class RpcConfig implements Serializable {
      */
     private Integer serverPort = 8080;
 
+    /**
+     * 模拟调用
+     */
+    private Boolean mock = false;
+
 }

@@ -10,7 +10,7 @@ public class ConfigUtils {
 
 
     /**
-     * 加载配置对象
+     * 加载配置对象（默认读取 .properties 后缀）
      *
      * @param tClass
      * @param prefix
@@ -22,7 +22,7 @@ public class ConfigUtils {
     }
 
     /**
-     * 加载配置对象，支持区分环境
+     * 加载配置对象，支持区分环境（默认读取 .properties 后缀）
      *
      * @param tClass
      * @param prefix
@@ -39,4 +39,6 @@ public class ConfigUtils {
         Props props = new Props(configFileBuilder.toString());
         return props.toBean(tClass, prefix);
     }
+
+
 }
