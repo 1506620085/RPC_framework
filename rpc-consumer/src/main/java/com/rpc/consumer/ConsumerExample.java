@@ -1,8 +1,7 @@
 package com.rpc.consumer;
 
-import com.rpc.demo.RpcApplication;
-import com.rpc.demo.config.RpcConfig;
-import com.rpc.demo.utils.ConfigUtils;
+import com.rpc.core.config.RpcConfig;
+import com.rpc.core.utils.ConfigUtils;
 
 /**
  * 建议服务消费者示例

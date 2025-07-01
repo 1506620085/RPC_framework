@@ -1,4 +1,4 @@
-package com.rpc.demo.proxy;
+package com.rpc.core.proxy;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -2,7 +2,7 @@ package com.rpc.consumer;
 
 import com.rpc.common.model.User;
 import com.rpc.common.service.UserService;
-import com.rpc.demo.proxy.ServiceProxyFactory;
+import com.rpc.core.proxy.ServiceProxyFactory;
 
 
 /**

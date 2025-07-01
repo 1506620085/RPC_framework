@@ -4,10 +4,10 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.rpc.common.model.User;
 import com.rpc.common.service.UserService;
-import com.rpc.demo.model.RpcRequest;
-import com.rpc.demo.model.RpcResponse;
-import com.rpc.demo.serializer.JdkSerializer;
-import com.rpc.demo.serializer.Serializer;
+import com.rpc.core.model.RpcRequest;
+import com.rpc.core.model.RpcResponse;
+import com.rpc.core.serializer.JdkSerializer;
+import com.rpc.core.serializer.Serializer;
 
 /**
  * 静态代理

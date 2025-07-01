@@ -1,10 +1,10 @@
-package com.rpc.demo.serializer;
+package com.rpc.core.serializer;
 
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rpc.demo.model.RpcRequest;
-import com.rpc.demo.model.RpcResponse;
+import com.rpc.core.model.RpcRequest;
+import com.rpc.core.model.RpcResponse;
 
 import java.io.IOException;
 

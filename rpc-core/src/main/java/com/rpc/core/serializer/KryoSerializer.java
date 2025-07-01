@@ -1,4 +1,4 @@
-package com.rpc.demo.serializer;
+package com.rpc.core.serializer;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;

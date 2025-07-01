@@ -1,4 +1,4 @@
-package com.rpc.demo.constant;
+package com.rpc.core.constant;
 
 /**
  * RPC 相关常量

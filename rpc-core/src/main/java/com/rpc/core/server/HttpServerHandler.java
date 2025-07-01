@@ -1,12 +1,11 @@
-package com.rpc.demo.server;
+package com.rpc.core.server;
 
-import com.rpc.demo.RpcApplication;
-import com.rpc.demo.model.RpcRequest;
-import com.rpc.demo.model.RpcResponse;
-import com.rpc.demo.registry.LocalRegistry;
-import com.rpc.demo.serializer.JdkSerializer;
-import com.rpc.demo.serializer.Serializer;
-import com.rpc.demo.serializer.SerializerFactory;
+import com.rpc.core.RpcApplication;
+import com.rpc.core.model.RpcRequest;
+import com.rpc.core.model.RpcResponse;
+import com.rpc.core.registry.LocalRegistry;
+import com.rpc.core.serializer.Serializer;
+import com.rpc.core.serializer.SerializerFactory;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;

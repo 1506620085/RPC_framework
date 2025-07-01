@@ -1,6 +1,6 @@
-package com.rpc.demo.config;
+package com.rpc.core.config;
 
-import com.rpc.demo.serializer.SerializerKeys;
+import com.rpc.core.serializer.SerializerKeys;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,13 +1,12 @@
-package com.rpc.demo.proxy;
+package com.rpc.core.proxy;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
-import com.rpc.demo.RpcApplication;
-import com.rpc.demo.model.RpcRequest;
-import com.rpc.demo.model.RpcResponse;
-import com.rpc.demo.serializer.JdkSerializer;
-import com.rpc.demo.serializer.Serializer;
-import com.rpc.demo.serializer.SerializerFactory;
+import com.rpc.core.RpcApplication;
+import com.rpc.core.model.RpcRequest;
+import com.rpc.core.model.RpcResponse;
+import com.rpc.core.serializer.Serializer;
+import com.rpc.core.serializer.SerializerFactory;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

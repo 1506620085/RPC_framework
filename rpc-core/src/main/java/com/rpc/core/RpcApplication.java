@@ -1,8 +1,8 @@
-package com.rpc.demo;
+package com.rpc.core;
 
-import com.rpc.demo.config.RpcConfig;
-import com.rpc.demo.constant.RpcConstant;
-import com.rpc.demo.utils.ConfigUtils;
+import com.rpc.core.config.RpcConfig;
+import com.rpc.core.constant.RpcConstant;
+import com.rpc.core.utils.ConfigUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**

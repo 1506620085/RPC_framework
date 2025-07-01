@@ -1,10 +1,10 @@
 package com.rpc.provider;
 
 import com.rpc.common.service.UserService;
-import com.rpc.demo.RpcApplication;
-import com.rpc.demo.registry.LocalRegistry;
-import com.rpc.demo.server.HttpServer;
-import com.rpc.demo.server.VertxHttpServer;
+import com.rpc.core.RpcApplication;
+import com.rpc.core.registry.LocalRegistry;
+import com.rpc.core.server.HttpServer;
+import com.rpc.core.server.VertxHttpServer;
 import com.rpc.provider.service.UserServiceImpl;
 
 

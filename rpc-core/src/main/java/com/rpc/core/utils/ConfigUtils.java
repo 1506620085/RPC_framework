@@ -1,4 +1,4 @@
-package com.rpc.demo.utils;
+package com.rpc.core.utils;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.setting.dialect.Props;

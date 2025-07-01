@@ -1,4 +1,4 @@
-package com.rpc.demo.serializer;
+package com.rpc.core.serializer;
 
 /**
  * 序列化器键名

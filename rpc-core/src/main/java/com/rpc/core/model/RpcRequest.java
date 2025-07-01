@@ -1,4 +1,4 @@
-package com.rpc.demo.model;
+package com.rpc.core.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

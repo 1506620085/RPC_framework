@@ -1,6 +1,6 @@
-package com.rpc.demo.proxy;
+package com.rpc.core.proxy;
 
-import com.rpc.demo.RpcApplication;
+import com.rpc.core.RpcApplication;
 
 import java.lang.reflect.Proxy;
 

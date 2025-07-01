@@ -1,4 +1,4 @@
-package com.rpc.demo.serializer;
+package com.rpc.core.serializer;
 
 import java.util.HashMap;
 import java.util.Map;
