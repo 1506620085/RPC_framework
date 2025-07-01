@@ -1,5 +1,6 @@
 package com.rpc.demo.config;
 
+import com.rpc.demo.serializer.SerializerKeys;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,5 +41,10 @@ public class RpcConfig implements Serializable {
      * 模拟调用
      */
     private Boolean mock = false;
+
+    /**
+     * 序列化器
+     */
+    private String serializer = SerializerKeys.JDK;
 
 }
