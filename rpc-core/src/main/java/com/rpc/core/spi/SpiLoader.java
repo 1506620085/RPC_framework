@@ -1,9 +1,15 @@
 package com.rpc.core.spi;
 
+import cn.hutool.core.io.resource.ResourceUtil;
 import com.rpc.core.serializer.Serializer;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -64,8 +70,59 @@ public class SpiLoader {
      */
     public static <T> T getInstance(Class<?> tClass, String key) {
         String tClassName = tClass.getName();
-        Map<String, Class<?>> stringClassMap = loaderMap.get(key);
+        Map<String, Class<?>> keyClassMap = loaderMap.get(key);
+        if (keyClassMap == null) {
+            throw new RuntimeException(String.format("SpiLoader 未加载 %s 类型", tClassName));
+        }
+        if (!keyClassMap.containsKey(key)) {
+            throw new RuntimeException(String.format("SpiLoader 的 %s 不存在 key=%s 的类型", tClassName, key));
+        }
+        // 获取到要加载的实现类型
+        Class<?> implClass = keyClassMap.get(key);
+        // 从实例缓存中加载指定类型的实例
+        String implClassName = implClass.getName();
+        if (!instanceCache.containsKey(implClassName)) {
+            try {
+                instanceCache.put(implClassName, implClass.newInstance());
+            } catch (InstantiationException | IllegalAccessException e) {
+                String errorMsg = String.format("%s 类实例化失败", implClassName);
+                throw new RuntimeException(errorMsg, e);
+            }
+        }
+        return (T) instanceCache.get(implClassName);
     }
 
-
+    /**
+     * 加载某个类型
+     *
+     * @param loadClass
+     * @throws IOException
+     */
+    public static Map<String, Class<?>> load(Class<?> loadClass) {
+        log.info("加载类型为 {} 的 SPI", loadClass.getName());
+        // 扫描路径，用户自定义的 SPI 优先级高于系统 SPI
+        HashMap<String, Class<?>> keyClassMap = new HashMap<>();
+        for (String scanDir : SCAN_DIRS) {
+            List<URL> resources = ResourceUtil.getResources(scanDir + loadClass.getName());
+            for (URL resource : resources) {
+                try {
+                    InputStreamReader inputStreamReader = new InputStreamReader(resource.openStream());
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        String[] strArray = line.split("=");
+                        if (strArray.length > 1) {
+                            String key = strArray[0];
+                            String className = strArray[1];
+                            keyClassMap.put(key, Class.forName(className));
+                        }
+                    }
+                } catch (Exception e) {
+                    log.error("spi resource load error", e);
+                }
+            }
+        }
+        loaderMap.put(loadClass.getName(), keyClassMap);
+        return keyClassMap;
+    }
 }
