@@ -45,6 +45,6 @@ public class RpcConfig implements Serializable {
     /**
      * 序列化器
      */
-    private String serializer = SerializerKeys.JDK;
+    private String serializer = SerializerKeys.HESSIAN;
 
 }
