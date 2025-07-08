@@ -1,5 +1,6 @@
 package com.rpc.core.config;
 
+import com.rpc.core.constant.RpcConstant;
 import com.rpc.core.serializer.SerializerKeys;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +26,7 @@ public class RpcConfig implements Serializable {
     /**
      * 版本号
      */
-    private String version = "1.0";
+    private String version = RpcConstant.DEFAULT_SERVICE_VERSION;
 
     /**
      * 服务器主机名
@@ -46,5 +47,10 @@ public class RpcConfig implements Serializable {
      * 序列化器
      */
     private String serializer = SerializerKeys.JSON;
+
+    /**
+     * 注册中心配置
+     */
+    private RegistryConfig registryConfig = new RegistryConfig();
 
 }
