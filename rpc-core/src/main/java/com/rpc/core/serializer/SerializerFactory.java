@@ -11,7 +11,7 @@ import java.util.Map;
 public class SerializerFactory {
 
     static {
-        SpiLoader.loadAll();
+        SpiLoader.load(Serializer.class);
     }
 
     /**
