@@ -36,6 +36,7 @@ public class ServiceProxy implements InvocationHandler {
         try {
             // 序列化
             byte[] bodyBytes = serializer.serialize(rpcRequest);
+
             // 发送请求
             byte[] result;
             try (HttpResponse httpResponse = HttpRequest.post("http://localhost:8080")
