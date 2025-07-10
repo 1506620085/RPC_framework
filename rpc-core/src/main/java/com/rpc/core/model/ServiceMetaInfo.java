@@ -27,7 +27,7 @@ public class ServiceMetaInfo {
     /**
      * 服务端口号
      */
-    private String servicePort;
+    private Integer servicePort;
 
     /**
      * 服务分组
