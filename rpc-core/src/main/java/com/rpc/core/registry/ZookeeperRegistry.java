@@ -34,4 +34,9 @@ public class ZookeeperRegistry implements Registry{
     public void destroy() {
 
     }
+
+    @Override
+    public void heartBeat() {
+
+    }
 }
