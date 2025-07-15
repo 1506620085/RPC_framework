@@ -43,6 +43,7 @@ public class EtcdRegistry implements Registry {
     public void init(RegistryConfig registryConfig) {
         client = Client.builder().endpoints(registryConfig.getAddress()).connectTimeout(Duration.ofMillis(registryConfig.getTimeout())).build();
         kvClient = client.getKVClient();
+        heartBeat();
     }
 
     @Override
@@ -93,6 +94,13 @@ public class EtcdRegistry implements Registry {
     @Override
     public void destroy() {
         System.out.println("当前节点下线");
+        for (String key : localRegisterNodeKeySet) {
+            try {
+                kvClient.delete(ByteSequence.from(key, StandardCharsets.UTF_8)).get();
+            } catch (Exception e) {
+                throw new RuntimeException(key + "节点下线失败");
+            }
+        }
         // 释放资源
         if (kvClient != null) {
             kvClient.close();
@@ -123,7 +131,7 @@ public class EtcdRegistry implements Registry {
                         ServiceMetaInfo serviceMetaInfo = JSONUtil.toBean(value, ServiceMetaInfo.class);
                         register(serviceMetaInfo);
                     } catch (Exception e) {
-                        throw new RuntimeException(e);
+                        throw new RuntimeException(key + "续签失败", e);
                     }
                 }
             }

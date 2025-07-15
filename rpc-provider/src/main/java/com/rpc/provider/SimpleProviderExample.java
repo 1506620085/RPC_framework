@@ -19,7 +19,7 @@ public class SimpleProviderExample {
         RpcApplication.init();
         // 注册服务
         String serviceName = UserService.class.getName();
-        LocalRegistry.register(serviceName, UserServiceImpl.class);
+//        LocalRegistry.register(serviceName, UserServiceImpl.class);
         // 注册服务到注册中心
         RpcConfig rpcConfig = RpcApplication.getRpcConfig();
         RegistryConfig registryConfig = rpcConfig.getRegistryConfig();
