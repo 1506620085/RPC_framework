@@ -3,8 +3,11 @@ package com.rpc.core.registry;
 import cn.hutool.core.collection.ConcurrentHashSet;
 import com.rpc.core.config.RegistryConfig;
 import com.rpc.core.model.ServiceMetaInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.recipes.cache.CuratorCache;
+import org.apache.curator.framework.recipes.cache.CuratorCacheListener;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.x.discovery.ServiceDiscovery;
 import org.apache.curator.x.discovery.ServiceDiscoveryBuilder;
@@ -20,6 +23,7 @@ import java.util.stream.Collectors;
 /**
  * Zookeeper 注册中心
  */
+@Slf4j
 public class ZooKeeperRegistry implements Registry {
 
     private CuratorFramework client;
@@ -65,7 +69,7 @@ public class ZooKeeperRegistry implements Registry {
             // 启动 client 和 serviceDiscovery
             client.start();
             serviceDiscovery.start();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -83,7 +87,7 @@ public class ZooKeeperRegistry implements Registry {
     public void unRegister(ServiceMetaInfo serviceMetaInfo) {
         try {
             serviceDiscovery.unregisterService(buildServiceInstance(serviceMetaInfo));
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         // 从本地缓存中移除
@@ -106,14 +110,26 @@ public class ZooKeeperRegistry implements Registry {
             // 写入缓存服务
             registryServiceCache.writeCache(serviceMetaInfoList);
             return serviceMetaInfoList;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
     public void destroy() {
-
+        log.info("当前节点下线");
+        // 下线节点（这一步可以不做，因为都是临时节点，服务下线，自然就被删掉了）
+        for (String key : localRegisterNodeKeySet) {
+            try {
+                client.delete().guaranteed().forPath(key);
+            } catch (Exception e) {
+                throw new RuntimeException(key + "节点下线失败");
+            }
+        }
+        // 释放资源
+        if (client != null) {
+            client.close();
+        }
     }
 
     @Override
@@ -123,12 +139,25 @@ public class ZooKeeperRegistry implements Registry {
 
     @Override
     public void watch(String serviceNodeKey) {
-
+        String watchKey = ZK_ROOT_PATH + "/" + serviceNodeKey;
+        boolean newWatch = watchingKeySet.add(watchKey);
+        if (newWatch) {
+            CuratorCache curatorCache = CuratorCache.build(client, watchKey);
+            ;
+            curatorCache.start();
+            curatorCache.listenable().addListener(
+                    CuratorCacheListener
+                            .builder()
+                            .forDeletes(childData -> registryServiceCache.clearCache())
+                            .forChanges(((oldNode, node) -> registryServiceCache.clearCache()))
+                            .build()
+            );
+        }
     }
 
     private ServiceInstance<ServiceMetaInfo> buildServiceInstance(ServiceMetaInfo serviceMetaInfo) {
         String serviceAddress = serviceMetaInfo.getServiceHost() + ":" + serviceMetaInfo.getServicePort();
-        try{
+        try {
             return ServiceInstance
                     .<ServiceMetaInfo>builder()
                     .id(serviceAddress)
@@ -136,8 +165,8 @@ public class ZooKeeperRegistry implements Registry {
                     .address(serviceAddress)
                     .payload(serviceMetaInfo)
                     .build();
-        }catch (Exception e) {
-            throw new RuntimeException(e)
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
