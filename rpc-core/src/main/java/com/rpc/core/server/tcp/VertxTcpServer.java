@@ -43,4 +43,8 @@ public class VertxTcpServer implements HttpServer {
         // 这里只是一个示例，实际逻辑需要根据具体的业务需求来实现
         return "Hello, client!".getBytes();
     }
+
+    public static void main(String[] args) {
+        new VertxTcpServer().doStart(8888);
+    }
 }
