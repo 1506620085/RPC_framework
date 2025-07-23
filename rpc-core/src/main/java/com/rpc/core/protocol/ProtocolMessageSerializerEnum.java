@@ -60,8 +60,6 @@ public enum ProtocolMessageSerializerEnum {
         return null;
     }
 
-}
-
     /**
      * 获取值列表
      *

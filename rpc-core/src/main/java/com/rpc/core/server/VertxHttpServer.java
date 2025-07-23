@@ -3,11 +3,14 @@ package com.rpc.core.server;
 
 import io.vertx.core.Vertx;
 
+/**
+ * Http 服务器实现
+ */
 public class VertxHttpServer implements HttpServer {
 
     @Override
     public void doStart(int port) {
-        // 创建 Vert.x 示例
+        // 创建 Vert.x 实例
         Vertx vertx = Vertx.vertx();
         // 创建 Http 服务器
         io.vertx.core.http.HttpServer server = vertx.createHttpServer();
