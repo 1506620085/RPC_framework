@@ -36,6 +36,11 @@ public class ProtocolMessage<T> {
         private byte version;
 
         /**
+         * 序列化器
+         */
+        private byte serializer;
+
+        /**
          * 消息类型（请求 / 响应）
          */
         private byte type;
