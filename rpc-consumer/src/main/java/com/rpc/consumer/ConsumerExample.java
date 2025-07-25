@@ -15,7 +15,6 @@ public class ConsumerExample {
         RpcConfig rpcConfig = ConfigUtils.loadConfig(RpcConfig.class, "rpc");
         RegistryConfig registryConfig = rpcConfig.getRegistryConfig();
         Registry registry = new EtcdRegistry();
-        registry.
         System.out.println(rpcConfig);
     }
 }
