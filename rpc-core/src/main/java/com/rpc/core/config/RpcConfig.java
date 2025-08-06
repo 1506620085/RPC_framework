@@ -1,6 +1,7 @@
 package com.rpc.core.config;
 
 import com.rpc.core.constant.RpcConstant;
+import com.rpc.core.loadbalancer.LoadBalancerKeys;
 import com.rpc.core.serializer.SerializerKeys;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -52,5 +53,10 @@ public class RpcConfig implements Serializable {
      * 注册中心配置
      */
     private RegistryConfig registryConfig = new RegistryConfig();
+
+    /**
+     * 负载均衡器
+     */
+    private String loadBalancer = LoadBalancerKeys.ROUND_ROBIN;
 
 }
