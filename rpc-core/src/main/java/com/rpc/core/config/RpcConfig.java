@@ -2,6 +2,7 @@ package com.rpc.core.config;
 
 import com.rpc.core.constant.RpcConstant;
 import com.rpc.core.fault.retry.RetryStrategyKeys;
+import com.rpc.core.fault.tolerant.TolerantStrategyKeys;
 import com.rpc.core.loadbalancer.LoadBalancerKeys;
 import com.rpc.core.serializer.SerializerKeys;
 import lombok.AllArgsConstructor;
@@ -64,5 +65,10 @@ public class RpcConfig implements Serializable {
      * 重试策略
      */
     private String retryStrategy = RetryStrategyKeys.FIXED_INTERVAL;
+
+    /**
+     * 容错策略
+     */
+    private String tolerantStrategy = TolerantStrategyKeys.FAIL_FAST;
 
 }
