@@ -6,14 +6,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 启用提供者 RPC 注解
+ * 启用 RPC 注解
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface EnableRpcProvider {
+public @interface EnableRpc {
 
     /**
-     * 需要启动提供者 server
+     * 需要启动 server
      *
      * @return
      */
